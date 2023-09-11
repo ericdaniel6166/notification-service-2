@@ -1,0 +1,4 @@
+app:
+  eureka-hostname: discovery-server
+  kafka-hostname: broker
+  kafka-port: 29092

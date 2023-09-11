@@ -1,0 +1,46 @@
+app:
+  eureka-hostname: localhost
+  eureka-port: 8761
+  server-port: 8084
+  application-name: notification-service
+  kafka-hostname: localhost
+  kafka-port: 9092
+  kafka-default-topic: notificationTopic
+  kafka-concurrency: 3
+  kafka-group-id: notificationId
+
+spring:
+  application:
+    name: ${app.application-name}
+  kafka:
+    enabled: true
+    bootstrap-servers: ${app.kafka-hostname}:${app.kafka-port}
+    template:
+      default-topic: ${app.kafka-default-topic}
+#    consumers:
+#      internal-consumer:
+#        topic-name: internal-topic
+    consumer:
+      properties:
+        concurrency: ${app.kafka-concurrency}
+      group-id: ${app.kafka-group-id}
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${app.eureka-hostname}:${app.eureka-port}/eureka
+
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+server:
+  port: ${app.server-port}
