@@ -17,13 +17,21 @@ spring:
     bootstrap-servers: ${app.kafka-hostname}:${app.kafka-port}
     template:
       default-topic: ${app.kafka-default-topic}
-#    consumers:
-#      internal-consumer:
-#        topic-name: internal-topic
-    consumer:
-      properties:
-        concurrency: ${app.kafka-concurrency}
-      group-id: ${app.kafka-group-id}
+    consumers:
+      internal-consumer:
+        topic-name: internalTopic
+        group-id: internalId
+        properties:
+          concurrency: ${app.kafka-concurrency}
+      notification-consumer:
+        topic-name: notificationTopic
+        group-id: notificationId
+        properties:
+          concurrency: ${app.kafka-concurrency}
+#    consumer:
+#      properties:
+#        concurrency: ${app.kafka-concurrency}
+#      group-id: ${app.kafka-group-id}
 
 eureka:
   client:
